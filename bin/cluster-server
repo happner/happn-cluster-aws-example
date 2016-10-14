@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+var config = require('../config/cluster-config');
+var HappnCluster = require('happn-cluster');
+
+HappnCluster.create(config)
+
+  .then(function (server) {
+
+  })
+
+  .catch(function (error) {
+
+    console.error(error.stack || error);
+    process.exit(1);
+
+  });

@@ -1,0 +1,23 @@
+{
+  "name": "happn-cluster-aws-example",
+  "version": "1.0.0",
+  "description": "AWS example setup happn cluster",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/happner/happn-cluster-aws-example.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/happner/happn-cluster-aws-example/issues"
+  },
+  "homepage": "https://github.com/happner/happn-cluster-aws-example#readme",
+  "dependencies": {
+    "happn-cluster": "happner/happn-cluster#happn-cluster-0.0.1",
+    "happn-service-mongo": "^0.3.2"
+  }
+}
