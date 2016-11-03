@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/happner/happn-cluster-aws-example#readme",
   "dependencies": {
-    "happn-cluster": "happner/happn-cluster#happn-cluster-0.0.1",
+    "happn-cluster": "0.0.1",
     "happn-service-mongo": "^0.3.2"
   }
 }
