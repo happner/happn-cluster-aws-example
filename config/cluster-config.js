@@ -33,7 +33,7 @@ var config = {
     },
 
     data: {
-      path: 'happn-service-mongo',
+      path: 'happn-service-mongo-2',
       config: {
         url: process.env.MONGO_URL,
         collection: process.env.MONGO_COLLECTION
