@@ -66,9 +66,11 @@ HappnCluster.create(config)
     clusterServer = _server;
     // if (process.env.CONDUCTOR_URL) {
       return Happn.client.create({
+        protocol: 'https',
+        allowSelfSignedCerts: true,
         username: '_ADMIN',
         password: 'secret',
-        url: 'http://0.0.0.0:49000',
+        url: 'https://0.0.0.0:49000',
         info: {
           name: clusterServer.name
         }

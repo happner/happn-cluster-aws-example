@@ -16,6 +16,8 @@ HappnCluster.create(config)
     clusterServer = _server;
     if (process.env.CONDUCTOR_URL) {
       return Happn.client.create({
+        protocol: 'https',
+        allowSelfSignedCerts: true
         username: '_ADMIN',
         password: process.env.CONDUCTOR_PASSWORD,
         url: process.env.CONDUCTOR_URL,
