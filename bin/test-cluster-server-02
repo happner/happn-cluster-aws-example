@@ -1,10 +1,60 @@
 #!/usr/bin/env node
 
-var config = require('../config/cluster-config');
 var HappnCluster = require('happn-cluster');
 var Happn = require('happn-3');
 var ConductorClient = require('../lib/conductor-client');
 var conductorClient = new ConductorClient();
+
+var seq = parseInt(__filename.split('-').pop());
+
+var config = {
+  host: 'lo0',
+  port: 57000 + seq,
+  secure: true,
+
+  services: {
+    security: {
+      config: {
+        adminUser: {
+          username: '_ADMIN',
+          password: 'happn'
+        }
+      }
+    },
+
+    data: {
+      path: 'happn-service-mongo-2',
+      config: {
+        url: 'mongodb://127.0.0.1:27017/example-cluster',
+        collection: 'example-cluster'
+      }
+    },
+
+    proxy: {
+      config: {
+        port: 55000 + seq
+      }
+    },
+
+    orchestrator: {
+      config: {
+        // replicate: ['/*'],
+        replicate: ['/global/*']
+      }
+    },
+
+    membership: {
+      config: {
+        clusterName: 'example-cluster',
+        host: 'lo0',
+        port: 56000 + seq,
+        hosts: ['127.0.0.1:56000', '127.0.0.1:56001', '127.0.0.1:56002'],
+        seed: seq == 0
+      }
+    }
+  }
+};
+
 
 var clusterServer;
 var conductorClientInstance;
@@ -14,16 +64,16 @@ HappnCluster.create(config)
 
   .then(function (_server) {
     clusterServer = _server;
-    if (process.env.CONDUCTOR_URL) {
+    // if (process.env.CONDUCTOR_URL) {
       return Happn.client.create({
         username: '_ADMIN',
-        password: process.env.CONDUCTOR_PASSWORD,
-        url: process.env.CONDUCTOR_URL,
+        password: 'secret',
+        url: 'http://0.0.0.0:49000',
         info: {
           name: clusterServer.name
         }
       });
-    }
+    // }
   })
 
   .then(function (happnClient) {
@@ -42,7 +92,7 @@ HappnCluster.create(config)
 
     return Happn.client.create({
       username: '_ADMIN',
-      password: process.env.ADMIN_PASSWORD,
+      password: process.env.ADMIN_PASSWORD || 'happn',
       url: happnUrl
     })
   })

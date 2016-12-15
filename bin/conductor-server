@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+// not required for cluster - used for testing
+
+var Happn = require('happn-3');
+var config = require('../config/conductor-config');
+var ConductorServer = require('../lib/conductor-server');
+var conductorServer = new ConductorServer();
+
+Happn.service.create(config)
+
+  .then(conductorServer.run.bind(conductorServer))
+
+  .catch(function (error) {
+    console.error(error);
+    process.exit(1);
+  });

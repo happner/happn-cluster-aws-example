@@ -12,6 +12,22 @@
      JOIN_HOST_2=10.0.0.20:56000 \
      JOIN_HOST_3=10.0.0.20:56000 \
      IS_SEED=1 \
+     CONDUCTOR_URL=http://127.0.0.1:49000 \
+     CONDUCTOR_PASSWORD=secret \
+     bin/cluster-server
+
+     # without conductor-server
+
+     HAPPN_IFACE=en0 \
+     ADMIN_PASSWORD=happn \
+     MONGO_URL=mongodb://127.0.0.1:27017/example-cluster \
+     MONGO_COLLECTION=example-cluster \
+     CLUSTER_NAME=example-cluster \
+     SWIM_IFACE=en0 \
+     JOIN_HOST_1=10.0.0.20:56000 \
+     JOIN_HOST_2=10.0.0.20:56000 \
+     JOIN_HOST_3=10.0.0.20:56000 \
+     IS_SEED=1 \
      bin/cluster-server
 
  */

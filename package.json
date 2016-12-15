@@ -17,7 +17,13 @@
   },
   "homepage": "https://github.com/happner/happn-cluster-aws-example#readme",
   "dependencies": {
-    "happn-cluster": "^2.0.4",
-    "happn-service-mongo-2": "0.0.2"
+    "bluebird": "^3.4.6",
+    "body-parser": "^1.15.2",
+    "happn-cluster": "^2.0.5",
+    "happn-service-mongo-2": "0.0.2",
+    "pad": "^1.0.2"
+  },
+  "devDependencies": {
+    "shortid": "^2.2.6"
   }
 }
