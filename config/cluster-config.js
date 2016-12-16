@@ -35,6 +35,7 @@
 var config = {
 
   host: process.env.HAPPN_IFACE,
+  port: parseInt(process.env.HAPPN_PORT || 57000),
   secure: true,
 
   services: {
@@ -58,6 +59,7 @@ var config = {
 
     proxy: {
       config: {
+        port: parseInt(process.env.PROXY_PORT || 55000),
       }
     },
 
@@ -72,6 +74,7 @@ var config = {
       config: {
         clusterName: process.env.CLUSTER_NAME,
         host: process.env.SWIM_IFACE,
+        port: parseInt(process.env.SWIM_PORT || 56000),
         hosts: [process.env.JOIN_HOST_1, process.env.JOIN_HOST_2, process.env.JOIN_HOST_3],
         seed: process.env.IS_SEED == '1'
       }
