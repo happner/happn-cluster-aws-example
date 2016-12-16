@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+
+var json = process.cwd() + '/' + process.argv[2];
+var data = require(json);
+var rows = {};
+
+
+Object.keys(data.messages).forEach(handleRow);
+
+averages();
+
+function handleRow(seq) {
+  var messageRow = data.messages[seq];
+  var overheadRow = data.overheads[seq];
+  if (!overheadRow) return;
+  if (messageRow.count !== overheadRow.count) return;
+  if (!messageRow.all) return;
+  if (!overheadRow.all) return;
+
+
+  // if (messageRow.count % 3 != 0) return;
+
+
+  var row = rows[messageRow.count] = rows[messageRow.count] || {
+      overheads: [],
+      durations: [],
+      overheadAverage: 0,
+      durationAverage: 0
+    };
+
+  Object.keys(overheadRow.members).forEach(function (name) {
+    var member = overheadRow.members[name];
+    row.overheads.push(member.duration);
+  });
+
+  Object.keys(messageRow.members).forEach(function(name) {
+    var member = messageRow.members[name];
+    row.durations.push(member.duration);
+  });
+
+}
+
+function averages() {
+  Object.keys(rows).forEach(function (count) {
+
+    rows[count].overheads.forEach(function(val) {
+      rows[count].overheadAverage += val;
+    });
+    rows[count].overheadAverage /= rows[count].overheads.length;
+    delete rows[count].overheads;
+
+    rows[count].durations.forEach(function(val) {
+      rows[count].durationAverage += val;
+    });
+    rows[count].durationAverage /= rows[count].durations.length;
+    rows[count].samples = rows[count].durations.length;
+    delete rows[count].durations;
+
+    var result = rows[count].durationAverage - rows[count].overheadAverage;
+    result *= 1000;
+    result = Math.round(result) / 1000;
+
+    rows[count].duration = result;
+  });
+}
+
+
+console.log('members-count,samples,avg-replication-time(ms)');
+Object.keys(rows).forEach(function (count) {
+  console.log('%s,%s,%s', count, rows[count].samples, rows[count].duration)
+});
