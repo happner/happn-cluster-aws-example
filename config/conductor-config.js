@@ -18,7 +18,8 @@ var config = {
               '/start',
               '/stop',
               '/download',
-              '/reset'
+              '/reset',
+              '/members'
             ]
           }
         }
