@@ -1,7 +1,3 @@
-
-
-*package.json still pointing at dev branch*
-
 # happn-cluster-aws-example
 
 AWS example setup [happn cluster](https://github.com/happner/happn-cluster).
