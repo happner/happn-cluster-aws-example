@@ -40,6 +40,12 @@ function handleRow(seq) {
 
 }
 
+function round(val) {
+  val *= 1000;
+  val = Math.round(val) / 1000;
+  return val;
+}
+
 function averages() {
   Object.keys(rows).forEach(function (count) {
 
@@ -57,15 +63,20 @@ function averages() {
     delete rows[count].durations;
 
     var result = rows[count].durationAverage - rows[count].overheadAverage;
-    result *= 1000;
-    result = Math.round(result) / 1000;
 
-    rows[count].duration = result;
+    rows[count].samples /= count;
+    rows[count].duration = rows[count].durationAverage - rows[count].overheadAverage;
   });
 }
 
 
-console.log('members-count,samples,avg-replication-time(ms)');
+console.log('members-count,samples,avg-overhead-time(ms),avg-replication-time(ms),corrected-replication-time(ms)');
 Object.keys(rows).forEach(function (count) {
-  console.log('%s,%s,%s', count, rows[count].samples, rows[count].duration)
+  console.log('%s, %s, %s, %s, %s',
+    count,
+    rows[count].samples,
+    round(rows[count].overheadAverage),
+    round(rows[count].durationAverage),
+    round(rows[count].duration)
+  )
 });
